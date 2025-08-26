@@ -120,11 +120,6 @@ namespace UnityModManagerNet
             unityVersion = ParseVersion(Application.unityVersion);
             Logger.Log($"Unity Engine: {unityVersion}.");
 
-            if (!Assembly.GetExecutingAssembly().Location.Contains($"Managed{Path.DirectorySeparatorChar}UnityModManager"))
-            {
-                Logger.Error($"Duplicate files found {Assembly.GetExecutingAssembly().Location}. The UnityModManager folder must be located only in \\Game\\*Data\\Managed\\ directory. This folder is created automatically after installation via UnityModManager.exe.");
-            }
-
             Config = GameInfo.Load();
             if (Config == null)
             {
@@ -138,18 +133,25 @@ namespace UnityModManagerNet
             Params = Param.Load();
             InstallerParams = InstallerParam.Load();
 
-            modsPath = Path.Combine(Environment.CurrentDirectory, Config.ModsDirectory);
-            if (!Directory.Exists(modsPath))
+            if ( Config.RelativeModsDirectory != null )
             {
-                var modsPath2 = Path.Combine(Path.GetDirectoryName(Environment.CurrentDirectory), Config.ModsDirectory);
+                modsPath = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Config.RelativeModsDirectory );
+            }
+            else
+            {
+                modsPath = Path.Combine( Environment.CurrentDirectory, Config.ModsDirectory );
+                if ( !Directory.Exists( modsPath ) )
+                {
+                    var modsPath2 = Path.Combine( Path.GetDirectoryName( Environment.CurrentDirectory ), Config.ModsDirectory );
 
-                if (Directory.Exists(modsPath2))
-                {
-                    modsPath = modsPath2;
-                }
-                else
-                {
-                    Directory.CreateDirectory(modsPath);
+                    if ( Directory.Exists( modsPath2 ) )
+                    {
+                        modsPath = modsPath2;
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory( modsPath );
+                    }
                 }
             }
 

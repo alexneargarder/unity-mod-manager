@@ -131,6 +131,7 @@ namespace UnityModManagerNet
             public string Name;
             public string Folder;
             public string ModsDirectory;
+            public string RelativeModsDirectory;
             public string ModInfo;
             public string EntryPoint;
             public string StartingPoint;
