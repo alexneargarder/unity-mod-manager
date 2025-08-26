@@ -119,10 +119,6 @@ namespace UnityModManagerNet
                 {
                     FirstLaunch();
                 }
-                if (Params.CheckUpdates == 2 || Params.CheckUpdates == 1 && Params.LastUpdateCheck.DayOfYear != DateTime.Now.DayOfYear)
-                {
-                    CheckModUpdates();
-                }
             }
 
             private void OnDestroy()
