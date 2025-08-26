@@ -819,10 +819,6 @@ namespace UnityModManagerNet
                             GUILayout.Space(3);
                             GUILayout.Label("Home page", GUILayout.ExpandWidth(false));
                             GUILayout.Space(15);
-                            GUILayout.Box(Textures.Updates, updates);
-                            GUILayout.Space(3);
-                            GUILayout.Label("Available update", GUILayout.ExpandWidth(false));
-                            GUILayout.Space(15);
                             GUILayout.Box(Textures.StatusActive, status);
                             GUILayout.Space(3);
                             GUILayout.Label("Active", GUILayout.ExpandWidth(false));
