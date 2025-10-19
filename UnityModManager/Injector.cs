@@ -10,14 +10,14 @@ namespace UnityModManagerNet
 {
     public class Injector
     {
-        public static void Run(bool doorstop = false)
+        public static void Run()
         {
             if (UnityModManager.initialized)
                 return;
 
             try
             {
-                _Run(doorstop);
+                _Run();
             }
             catch (Exception e)
             {
@@ -28,7 +28,7 @@ namespace UnityModManagerNet
 
         private static bool startUiWithManager;
 
-        private static void _Run(bool doorstop)
+        private static void _Run()
         {
             Console.WriteLine();
             Console.WriteLine();
@@ -66,31 +66,20 @@ namespace UnityModManagerNet
 
             if (!string.IsNullOrEmpty(UnityModManager.Config.StartingPoint))
             {
-                if (!doorstop && UnityModManager.Config.StartingPoint == UnityModManager.Config.EntryPoint)
+                if ( TryGetEntryPoint( UnityModManager.Config.StartingPoint, out var @class, out var method, out var place ) )
                 {
-                    UnityModManager.Start();
-                    if (startUiWithManager)
-                    {
-                        RunUI();
-                    }
+                    var usePrefix = ( place == "before" );
+                    var harmony = new HarmonyLib.Harmony( nameof( UnityModManager ) );
+                    var prefix = typeof( Injector ).GetMethod( nameof( Prefix_Start ), BindingFlags.Static | BindingFlags.NonPublic );
+                    var postfix = typeof( Injector ).GetMethod( nameof( Postfix_Start ), BindingFlags.Static | BindingFlags.NonPublic );
+                    harmony.Patch( method, usePrefix ? new HarmonyMethod( prefix ) : null, !usePrefix ? new HarmonyMethod( postfix ) : null );
+                    UnityModManager.Logger.Log( "Injection successful." );
                 }
                 else
                 {
-                    if (TryGetEntryPoint(UnityModManager.Config.StartingPoint, out var @class, out var method, out var place))
-                    {
-                        var usePrefix = (place == "before");
-                        var harmony = new HarmonyLib.Harmony(nameof(UnityModManager));
-                        var prefix = typeof(Injector).GetMethod(nameof(Prefix_Start), BindingFlags.Static | BindingFlags.NonPublic);
-                        var postfix = typeof(Injector).GetMethod(nameof(Postfix_Start), BindingFlags.Static | BindingFlags.NonPublic);
-                        harmony.Patch(method, usePrefix ? new HarmonyMethod(prefix) : null, !usePrefix ? new HarmonyMethod(postfix) : null);
-                        UnityModManager.Logger.Log("Injection successful.");
-                    }
-                    else
-                    {
-                        UnityModManager.Logger.Log("Injection canceled.");
-                        UnityModManager.OpenUnityFileLog();
-                        return;
-                    }
+                    UnityModManager.Logger.Log( "Injection canceled." );
+                    UnityModManager.OpenUnityFileLog();
+                    return;
                 }
             }
             else

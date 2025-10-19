@@ -14,16 +14,6 @@ namespace UnityModManagerNet
 
             public static void Init()
             {
-                var currentGame = Config.Name.Replace(" ", "").Replace(":", "");
-                foreach (var t in typeof(GameScripts).GetNestedTypes(BindingFlags.NonPublic))
-                {
-                    if (t.IsClass && t.IsSubclassOf(typeof(GameScript)) && t.Name == currentGame)
-                    {
-                        var script = (GameScript)Activator.CreateInstance(t);
-                        scripts.Add(script);
-                        Logger.Log($"Initialize game script {t.Name}");
-                    }
-                }
             }
 
             public static void OnBeforeLoadMods()
@@ -98,61 +88,6 @@ namespace UnityModManagerNet
             }
 
             // Insert here a class named as game to execute custom script for a game.
-
-            /*
-            class RiskofRain2 : GameScript
-            {
-                public override void OnModToggle(ModEntry modEntry, bool value)
-                {
-                    if (modEntry.Info.IsCheat)
-                    {
-                        if (value)
-                        {
-                            SetModded(true);
-                        }
-                        else if (modEntries.All(x => x == modEntry || !x.Info.IsCheat))
-                        {
-                            SetModded(false);
-                        }
-                    }
-                }
-
-                public override void OnBeforeLoadMods()
-                {
-                    forbidDisableMods = true;
-                }
-
-                private static FieldInfo mFieldModded;
-                public static FieldInfo FieldModded
-                {
-                    get
-                    {
-                        if (mFieldModded == null)
-                        {
-                            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-                            {
-                                if (assembly.ManifestModule.Name == "Assembly-CSharp.dll")
-                                {
-                                    mFieldModded = assembly.GetType("RoR2.RoR2Application").GetField("isModded", BindingFlags.Public | BindingFlags.Static);
-                                    break;
-                                }
-                            }
-                        }
-                        return mFieldModded;
-                    }
-                }
-
-                public static bool GetModded()
-                {
-                    return (bool)FieldModded.GetValue(null);
-                }
-
-                public static void SetModded(bool value)
-                {
-                    FieldModded.SetValue(null, value);
-                }
-            }
-            */
 
         }
     }

@@ -48,4 +48,12 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="XCOPY /Y /R &quot;$(TargetPath)&quot; &quot;C:\Users\Alex\AppData\Roaming\r2modmanPlus-local\Broforce\profiles\Default\UMM\Core\$(ProjectName).dll*&quot;&#xD;&#xA;del &quot;C:\Users\Alex\AppData\Roaming\r2modmanPlus-local\Broforce\profiles\Default\UMM\Core\*.cache&quot; 2&gt; nul || set errorlevel=0&#xD;&#xA;start steam://rungameid/274190)" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="taskkill /f /t /im Broforce_beta.exe 2&gt;nul || exit /b 0" />
+  </Target>
+
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CS1591
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
@@ -128,18 +129,15 @@ namespace UnityModManagerNet
         public class GameInfo
         {
             [XmlAttribute]
-            public string Name;
-            public string Folder;
             public string ModsDirectory;
-            public string RelativeModsDirectory;
-            public string ModInfo;
+            public string RelativeModsDirectory = "../Mods";
+            public string ModInfo = "Info.json";
             public string EntryPoint;
             public string StartingPoint;
             public string UIStartingPoint;
             public string TextureReplacingPoint;
             public string SessionStartPoint;
             public string SessionStopPoint;
-            public string GameExe;
             public string GameVersionPoint;
             public string MinimalManagerVersion;
 
@@ -149,23 +147,15 @@ namespace UnityModManagerNet
             {
                 try
                 {
-                    using (var stream = File.OpenRead(filepath))
+                    if ( File.Exists( filepath ) )
                     {
-                        var obj = new XmlSerializer(typeof(GameInfo)).Deserialize(stream) as GameInfo;
-                        if (!string.IsNullOrEmpty(obj.Name)) 
-                        {
-                            obj.Name = obj.Name.Replace("&amp;", "&");
-                        }
-                        if (!string.IsNullOrEmpty(obj.Folder))
-                        {
-                            obj.Folder = obj.Folder.Replace("&amp;", "&");
-                        }
-                        if (!string.IsNullOrEmpty(obj.GameExe))
-                        {
-                            obj.GameExe = obj.GameExe.Replace("&amp;", "&");
-                        }
-
+                        using var stream = File.OpenRead( filepath );
+                        var obj = new XmlSerializer( typeof( GameInfo ) ).Deserialize( stream ) as GameInfo;
                         return obj;
+                    }
+                    else
+                    {
+                        return new GameInfo();
                     }
                 }
                 catch (Exception e)

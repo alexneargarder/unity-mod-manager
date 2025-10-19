@@ -92,7 +92,7 @@ namespace UnityModManagerNet
             if (name == "Assembly-CSharp" || name == "GH.Runtime" || name == "AtomGame" || name == "Game" /*Cloud Meadow*/)
             {
                 AppDomain.CurrentDomain.AssemblyLoad -= OnLoad;
-                Injector.Run(true);
+                Injector.Run();
             }
         }
 
@@ -126,7 +126,6 @@ namespace UnityModManagerNet
                 return false;
             }
 
-            Logger.Log($"Game: {Config.Name}.");
             Logger.NativeLog($"IsSupportOnSessionStart: {IsSupportOnSessionStart}.");
             Logger.NativeLog($"IsSupportOnSessionStop: {IsSupportOnSessionStop}.");
 
