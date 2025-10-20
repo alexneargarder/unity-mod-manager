@@ -134,14 +134,14 @@ namespace UnityModManagerNet
 
             if ( Config.RelativeModsDirectory != null )
             {
-                modsPath = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Config.RelativeModsDirectory );
+                modsPath = Path.GetFullPath( Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Config.RelativeModsDirectory ) );
             }
             else
             {
-                modsPath = Path.Combine( Environment.CurrentDirectory, Config.ModsDirectory );
+                modsPath = Path.GetFullPath( Path.Combine( Environment.CurrentDirectory, Config.ModsDirectory ) );
                 if ( !Directory.Exists( modsPath ) )
                 {
-                    var modsPath2 = Path.Combine( Path.GetDirectoryName( Environment.CurrentDirectory ), Config.ModsDirectory );
+                    var modsPath2 = Path.GetFullPath( Path.Combine( Path.GetDirectoryName( Environment.CurrentDirectory ), Config.ModsDirectory ) );
 
                     if ( Directory.Exists( modsPath2 ) )
                     {
