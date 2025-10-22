@@ -1,5 +1,7 @@
-# UMMLoader
-UMMLoader is a mod loader for loading [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) mods. It is mostly unchanged from the mod loader in [the original Unity Mod Manager repo](https://github.com/newman55/unity-mod-manager/), with just a few minor tweaks to better support a standalone installation.
+# UMM
+This is a fork of [Unity Mod Manager](https://github.com/newman55/unity-mod-manager/) with a few minor tweaks to better support a standalone installation via [r2modman](https://github.com/ebkr/r2modmanPlus).
+
+**Note:** This version of UMM does not provide a program for installing mods or UMM itself. To install UMM or UMM mods, you must use [r2modman](https://github.com/ebkr/r2modmanPlus).
 
 ### Libraries used in the project.
 - [Harmony](https://github.com/pardeike/Harmony/wiki/Utilities)
