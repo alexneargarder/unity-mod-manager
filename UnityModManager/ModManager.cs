@@ -135,6 +135,10 @@ namespace UnityModManagerNet
             if ( Config.RelativeModsDirectory != null )
             {
                 modsPath = Path.GetFullPath( Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Config.RelativeModsDirectory ) );
+                if ( !Directory.Exists( modsPath ) )
+                {
+                    Directory.CreateDirectory( modsPath );
+                }
             }
             else
             {
@@ -250,10 +254,30 @@ namespace UnityModManagerNet
 
                 foreach (string dir in Directory.GetDirectories(modsPath))
                 {
+                    string directory = dir;
                     string jsonPath = Path.Combine(dir, Config.ModInfo);
                     if (!File.Exists(jsonPath))
                     {
                         jsonPath = Path.Combine(dir, Config.ModInfo.ToLower());
+                        // Check subdirectories if not found in root
+                        if ( !File.Exists(jsonPath) )
+                        {
+                            string[] files = Directory.GetFiles( dir, Config.ModInfo, SearchOption.AllDirectories );
+                            if ( files.Length > 0 )
+                            {
+                                jsonPath = files[0];
+                                directory = Directory.GetParent( jsonPath ).FullName;
+                            }
+                            else
+                            {
+                                files = Directory.GetFiles( dir, Config.ModInfo.ToLower(), SearchOption.AllDirectories );
+                                if ( files.Length > 0 )
+                                {
+                                    jsonPath = files[0];
+                                    directory = Directory.GetParent( jsonPath ).FullName;
+                                }
+                            }
+                        }
                     }
                     ModEntry modEntry;
                     if (File.Exists(jsonPath))
@@ -276,13 +300,13 @@ namespace UnityModManagerNet
                             }
                             if (string.IsNullOrEmpty(modInfo.AssemblyName))
                             {
-                                if (File.Exists(Path.Combine(dir, modInfo.Id + ".dll")))
+                                if (File.Exists(Path.Combine(directory, modInfo.Id + ".dll")))
                                 {
                                     modInfo.AssemblyName = modInfo.Id + ".dll";
                                 }
                             }
 
-                            modEntry = new ModEntry(modInfo, dir + Path.DirectorySeparatorChar);
+                            modEntry = new ModEntry(modInfo, directory + Path.DirectorySeparatorChar);
                             mods.Add(modInfo.Id, modEntry);
                         }
                         catch (Exception exception)
@@ -292,7 +316,7 @@ namespace UnityModManagerNet
                             continue;
                         }
 
-                        var trFolder = Path.Combine(dir, "TextureReplacer");
+                        var trFolder = Path.Combine(directory, "TextureReplacer");
                         if (Directory.Exists(trFolder))
                         {
                             foreach (string skinDir in Directory.GetDirectories(trFolder))
