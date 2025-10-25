@@ -1,0 +1,7 @@
+{
+    "name": "UMM",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/alexneargarder/unity-mod-manager",
+    "description": "A mod loader for loading UMM mods",
+    "dependencies": []
+}
