@@ -132,7 +132,7 @@ namespace UnityModManagerNet
             Params = Param.Load();
             InstallerParams = InstallerParam.Load();
 
-            if ( Config.RelativeModsDirectory != null )
+            if ( Config.RelativeModsDirectory != null && Config.RelativeModsDirectory != string.Empty )
             {
                 modsPath = Path.GetFullPath( Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location ), Config.RelativeModsDirectory ) );
                 if ( !Directory.Exists( modsPath ) )

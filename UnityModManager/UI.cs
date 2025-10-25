@@ -76,6 +76,8 @@ namespace UnityModManagerNet
             private int mSelectedFont;
             private string mModFilter = "";
 
+            private bool mShowModToggleWarning = false;
+
             public int globalFontSize = 13;
 
             private void Awake()
@@ -412,6 +414,32 @@ namespace UnityModManagerNet
                     GUI.color = color;
                 }
 
+                if (mShowModToggleWarning)
+                {
+                    var warningRect = new Rect((Screen.width - 700) / 2, (Screen.height - 220) / 2, 700, 220);
+                    warningRect = GUILayout.Window(999, warningRect, (id) =>
+                    {
+                        GUILayout.Label("Warning", h1);
+                        GUILayout.Space(15);
+                        var labelStyle = new GUIStyle(GUI.skin.label) { fontSize = Scale(16) };
+                        GUILayout.Label("UMM and r2modman use different systems for enabling/disabling mods.", labelStyle);
+                        GUILayout.Space(8);
+                        GUILayout.Label("If you disable or enable a mod in UMM, it will NOT be reflected in r2modman, and vice versa.", labelStyle);
+                        GUILayout.Space(8);
+                        GUILayout.Label("Make sure to manage your mods consistently in one place to avoid confusion.", labelStyle);
+                        GUILayout.FlexibleSpace();
+                        GUILayout.BeginHorizontal();
+                        GUILayout.FlexibleSpace();
+                        if (GUILayout.Button("OK", GUILayout.Width(140), GUILayout.Height(40)))
+                        {
+                            mShowModToggleWarning = false;
+                        }
+                        GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
+                        GUILayout.Space(10);
+                    }, "", window);
+                }
+
                 foreach (var mod in modEntries)
                 {
                     if (mod.Active && mod.OnFixedGUI != null)
@@ -744,6 +772,13 @@ namespace UnityModManagerNet
                                     action = GUILayout.Toggle(action, "", colWidth[++col]);
                                     if (action != mods[i].Enabled)
                                     {
+                                        if (!action && !Params.ShownModToggleWarning)
+                                        {
+                                            mShowModToggleWarning = true;
+                                            Params.ShownModToggleWarning = true;
+                                            Params.Save();
+                                        }
+
                                         mods[i].Enabled = action;
                                         if (mods[i].Toggleable)
                                             mods[i].Active = action;

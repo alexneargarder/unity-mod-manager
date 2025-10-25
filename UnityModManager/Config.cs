@@ -31,6 +31,7 @@ namespace UnityModManagerNet
             public float UIScale = 1f;
             public string UIFont = null;
             public DateTime LastUpdateCheck;
+            public bool ShownModToggleWarning = false;
 
             public List<Mod> ModParams = new List<Mod>();
 
