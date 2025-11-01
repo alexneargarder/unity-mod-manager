@@ -1,7 +1,7 @@
 # UMM
-This is a fork of [Unity Mod Manager](https://github.com/newman55/unity-mod-manager/) with a few minor tweaks to better support a standalone installation via [r2modman](https://github.com/ebkr/r2modmanPlus).
+This is a fork of [Unity Mod Manager](https://github.com/newman55/unity-mod-manager/) with a few minor tweaks to better support a standalone installation via [r2modman](https://github.com/ebkr/r2modmanPlus) or other Thunderstore compatible mod managers.
 
-**Note:** This version of UMM does not provide a program for installing mods or UMM itself. To install UMM or UMM mods, you must use [r2modman](https://github.com/ebkr/r2modmanPlus).
+**Note:** This version of UMM does not provide a program for installing mods or UMM itself. To install UMM or UMM mods, you must use [r2modman](https://github.com/ebkr/r2modmanPlus) or another Thunderstore compatible mod manager.
 
 [Source Code](https://github.com/alexneargarder/unity-mod-manager)
 

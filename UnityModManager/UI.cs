@@ -422,9 +422,9 @@ namespace UnityModManagerNet
                         GUILayout.Label("Warning", h1);
                         GUILayout.Space(15);
                         var labelStyle = new GUIStyle(GUI.skin.label) { fontSize = Scale(16) };
-                        GUILayout.Label("UMM and r2modman use different systems for enabling/disabling mods.", labelStyle);
+                        GUILayout.Label("UMM and Thunderstore compatible mod managers use different systems for enabling/disabling mods.", labelStyle);
                         GUILayout.Space(8);
-                        GUILayout.Label("If you disable or enable a mod in UMM, it will NOT be reflected in r2modman, and vice versa.", labelStyle);
+                        GUILayout.Label("If you disable or enable a mod in UMM, it will NOT be reflected in the external mod manager, and vice versa.", labelStyle);
                         GUILayout.Space(8);
                         GUILayout.Label("Make sure to manage your mods consistently in one place to avoid confusion.", labelStyle);
                         GUILayout.FlexibleSpace();
