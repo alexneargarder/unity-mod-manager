@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using UnityEngine;
 using dnlib.DotNet;
 
@@ -44,6 +43,11 @@ namespace UnityModManagerNet
         /// Path to Mods folder
         /// </summary>
         public static string modsPath { get; private set; }
+
+        /// <summary>
+        /// Path to Config folder
+        /// </summary>
+        public static string configPath { get; private set; }
 
         /// <summary>
         /// [0.28.0]
@@ -160,6 +164,13 @@ namespace UnityModManagerNet
 
             Logger.Log($"Mods path: {modsPath}.");
             OldModsPath = modsPath;
+
+            configPath = Path.Combine( Path.GetDirectoryName( modsPath ), "Config" );
+
+            if ( !Directory.Exists( configPath ) )
+            {
+                Directory.CreateDirectory( configPath );
+            }
 
             KeyBinding.Initialize();
 

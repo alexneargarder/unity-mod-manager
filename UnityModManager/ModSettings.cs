@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace UnityModManagerNet
@@ -24,7 +21,7 @@ namespace UnityModManagerNet
 
             public virtual string GetPath(ModEntry modEntry)
             {
-                return Path.Combine(modEntry.Path, "Settings.xml");
+                return Path.Combine( modEntry.ConfigPath, "Settings.xml" );
             }
 
             public static void Save<T>(T data, ModEntry modEntry) where T : ModSettings, new()
@@ -37,6 +34,7 @@ namespace UnityModManagerNet
             /// </summary>
             public static void Save<T>(T data, ModEntry modEntry, XmlAttributeOverrides attributes) where T : ModSettings, new()
             {
+                Directory.CreateDirectory( modEntry.ConfigPath );
                 var filepath = data.GetPath(modEntry);
                 try
                 {

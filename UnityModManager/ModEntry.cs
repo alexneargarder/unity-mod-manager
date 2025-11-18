@@ -1,11 +1,10 @@
-﻿using dnlib.DotNet;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
+using dnlib.DotNet;
 
 namespace UnityModManagerNet
 {
@@ -19,6 +18,11 @@ namespace UnityModManagerNet
             /// Path to mod folder
             /// </summary>
             public readonly string Path;
+
+            /// <summary>
+            /// Path to mod's config folder
+            /// </summary>
+            public readonly string ConfigPath;
 
             Assembly mAssembly = null;
             public Assembly Assembly => mAssembly;
@@ -253,6 +257,7 @@ namespace UnityModManagerNet
             {
                 Info = info;
                 Path = path;
+                ConfigPath = System.IO.Path.Combine( UnityModManager.configPath, Info.Id );
                 Logger = new ModLogger(Info.Id);
                 Version = ParseVersion(info.Version);
                 ManagerVersion = !string.IsNullOrEmpty(info.ManagerVersion) ? ParseVersion(info.ManagerVersion) : !string.IsNullOrEmpty(Config.MinimalManagerVersion) ? ParseVersion(Config.MinimalManagerVersion) : new Version();

@@ -35,7 +35,7 @@ namespace UnityModManagerNet
 
             public List<Mod> ModParams = new List<Mod>();
 
-            static readonly string filepath = Path.Combine(Path.GetDirectoryName(typeof(Param).Assembly.Location), "Params.xml");
+            static readonly string filepath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(typeof(Param).Assembly.Location), "../Config/UMM/Params.xml"));
 
             public void Save()
             {
@@ -46,6 +46,7 @@ namespace UnityModManagerNet
                     {
                         ModParams.Add(new Mod { Id = mod.Info.Id, Enabled = mod.Enabled, Hotkey = mod.Hotkey });
                     }
+                    Directory.CreateDirectory(Path.GetDirectoryName(filepath));
                     using (var writer = new StreamWriter(filepath))
                     {
                         var serializer = new XmlSerializer(typeof(Param));
