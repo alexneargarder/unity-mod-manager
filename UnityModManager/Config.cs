@@ -24,13 +24,11 @@ namespace UnityModManagerNet
             public static KeyBinding DefaultHotkey = new KeyBinding { keyCode = KeyCode.F10, modifiers = 1 };
             public static KeyBinding EscapeHotkey = new KeyBinding { keyCode = KeyCode.Escape };
             public KeyBinding Hotkey = new KeyBinding();
-            public int CheckUpdates = 1;
             public int ShowOnStart = 1;
             public float WindowWidth;
             public float WindowHeight;
             public float UIScale = 1f;
             public string UIFont = null;
-            public DateTime LastUpdateCheck;
             public bool ShownModToggleWarning = false;
 
             public List<Mod> ModParams = new List<Mod>();

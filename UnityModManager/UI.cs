@@ -960,13 +960,6 @@ namespace UnityModManagerNet
                             GUILayout.Space(5);
 
                             GUILayout.BeginHorizontal();
-                            GUILayout.Label("Check updates", GUILayout.ExpandWidth(false));
-                            ToggleGroup(Params.CheckUpdates, mCheckUpdateStrings, i => { Params.CheckUpdates = i; }, null, GUILayout.ExpandWidth(false), GUILayout.ExpandHeight(true));
-                            GUILayout.EndHorizontal();
-
-                            GUILayout.Space(5);
-
-                            GUILayout.BeginHorizontal();
                             GUILayout.Label("Show this window on startup", GUILayout.ExpandWidth(false));
                             ToggleGroup(Params.ShowOnStart, mShowOnStartStrings, i => { Params.ShowOnStart = i; }, null, GUILayout.ExpandWidth(false));
                             GUILayout.EndHorizontal();
@@ -1039,8 +1032,6 @@ namespace UnityModManagerNet
                         }
                 }
             }
-
-            private static string[] mCheckUpdateStrings = { "Disabled", "Once a day", "Everytime" };
             
             private static string[] mShowOnStartStrings = { "No", "Yes" };
 
