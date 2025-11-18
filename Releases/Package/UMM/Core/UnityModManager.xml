@@ -24,6 +24,11 @@
             Path to mod folder
             </summary>
         </member>
+        <member name="F:UnityModManagerNet.UnityModManager.ModEntry.ConfigPath">
+            <summary>
+            Path to mod's config folder
+            </summary>
+        </member>
         <member name="P:UnityModManagerNet.UnityModManager.ModEntry.HasAssembly">
             <summary>
             Does the mod use a dll [0.26.0]
@@ -223,6 +228,11 @@
         <member name="P:UnityModManagerNet.UnityModManager.modsPath">
             <summary>
             Path to Mods folder
+            </summary>
+        </member>
+        <member name="P:UnityModManagerNet.UnityModManager.configPath">
+            <summary>
+            Path to Config folder
             </summary>
         </member>
         <member name="F:UnityModManagerNet.UnityModManager.allSkins">
