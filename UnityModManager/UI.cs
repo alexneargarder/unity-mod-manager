@@ -933,9 +933,13 @@ namespace UnityModManagerNet
                                 {
                                     Logger.Clear();
                                 }
-                                if (GUILayout.Button("Open detailed log", button, GUILayout.ExpandWidth(false)))
+                                if (GUILayout.Button("Open Unity log", button, GUILayout.ExpandWidth(false)))
                                 {
                                     OpenUnityFileLog();
+                                }
+                                if ( GUILayout.Button( "Open UMM log", button, GUILayout.ExpandWidth( false ) ) )
+                                {
+                                    OpenUMMLog();
                                 }
                             };
 

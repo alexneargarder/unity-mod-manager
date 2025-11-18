@@ -31,6 +31,11 @@ namespace UnityModManagerNet
             }).Start();
         }
 
+        public static void OpenUMMLog()
+        {
+            Application.OpenURL(Logger.filepath);
+        }
+
         public static Version ParseVersion(string str)
         {
             var array = str.Split('.');
