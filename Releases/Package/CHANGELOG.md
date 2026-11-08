@@ -1,3 +1,7 @@
+## v1.1.0 (v0.32.4 of base UMM repo)
+- Add linux support.
+- Update doorstop to v4.4.1.
+
 ## v1.0.2 (v0.32.4 of base UMM repo)
 - Change default settings file location to avoid settings being deleted when updating
 - Add open UMM log button
